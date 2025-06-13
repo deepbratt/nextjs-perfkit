@@ -121,6 +121,80 @@ export default function Sidebar({ title }) {
 
 ---
 
+## 🧪 Full Example: Using PerfKit in a Next.js Page
+
+```tsx
+'use client';
+import { useEffect } from 'react';
+import { useMemoryTracker } from '@perfkit/devtools';
+import { useRenderHeatmap } from '@perfkit/devtools';
+import { usePropDebugger } from '@perfkit/devtools';
+import {
+  registerAlertHandler,
+  checkMemoryUsage,
+  trackNetworkRequest
+} from '@perfkit/devtools';
+import { downloadLogs } from '@perfkit/devtools';
+
+export default function Home() {
+  useRenderHeatmap('Home');
+  useMemoryTracker(3000); // check memory every 3 seconds
+  usePropDebugger({ example: 'value' });
+
+  useEffect(() => {
+    registerAlertHandler((msg, type, meta) => {
+      console.warn(`[ALERT - ${type}]`, msg, meta);
+    });
+
+    setInterval(() => checkMemoryUsage(), 5000);
+    trackNetworkRequest('/api/test');
+  }, []);
+
+  return (
+    <main>
+      <h1>Hello PerfKit</h1>
+      <button onClick={downloadLogs}>Download Logs</button>
+    </main>
+  );
+}
+```
+
+## 📚 Utility Highlights
+
+### `useMemoryTracker(intervalMs?: number)`
+Tracks memory usage via `performance.memory` and logs it regularly.
+🚨 Triggers an alert if heap usage exceeds a defined threshold (default: 100MB).
+
+---
+
+### `useRenderHeatmap(label: string)`
+Measures render duration of a component and outlines it with a visual border if slow.
+📏 Useful for identifying visual bottlenecks.
+
+---
+
+### `usePropDebugger(props)`
+Logs changed props that cause a re-render.
+🔍 Helps debug unnecessary re-renders in components.
+
+---
+
+### `registerAlertHandler(callback)`
+Registers a custom global alert handler.
+💡 Use this to display toast messages or logs when memory/network thresholds are crossed.
+
+---
+
+### `trackNetworkRequest(url: string)`
+Monitors fetch calls and tracks repeated calls to the same endpoint within a short window (10s by default).
+📡 Prevents performance issues caused by over-fetching.
+
+---
+
+### `downloadLogs()`
+Exports all collected logs (render, memory, network, etc.) as a downloadable `.json` file.
+📝 Perfect for team debugging or offline analysis.
+
 ## 🛠 Future Roadmap
 
 - [ ] Browser extension
