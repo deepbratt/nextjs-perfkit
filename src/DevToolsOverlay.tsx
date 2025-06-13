@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "./styles/overlay.css";
 import { trackMemoryUsage } from "./utils/trackMemory";
 import { interceptNetwork } from "./utils/trackNetwork";
 import { downloadLogs, getLogs } from "./utils/uploadLogs";
+import { injectOverlayFallbackStyles } from "./utils/injectStyles";
 
 export const DevToolsOverlay = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -47,6 +47,7 @@ export const DevToolsOverlay = () => {
 };
 
 export const initPerfKit = () => {
+  injectOverlayFallbackStyles();
   const container = document.createElement("div");
   document.body.appendChild(container);
   import("react-dom/client").then(({ createRoot }) => {
