@@ -32,15 +32,17 @@ jobs:
         run: |
           git config user.name "deepbratt"
           git config user.email "deepbratt@users.noreply.github.com"
-          npm version patch --no-git-tag-version
+          VERSION=$(npm version patch --no-git-tag-version)
           git add package.json package-lock.json
           git commit -m "ci: bump version"
-          git tag $(node -p "require('./package.json').version")
+          git tag $VERSION
           git push origin main --follow-tags
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 🚀 Publish to NPM
-        run: npm publish --access public
+      - name: 🚀 Publish to NPM (public)
+        run: |
+          npm publish --access public
+          npm dist-tag add nextjs-perfkit@$(node -p "require('./package.json').version") latest
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
