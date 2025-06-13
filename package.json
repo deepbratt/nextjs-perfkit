@@ -1,0 +1,19 @@
+{
+  "name": "@perfkit/devtools",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "prepare": "npm run build"
+  },
+  "files": ["dist", "styles", "src"],
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "next": "^13.0.0 || ^14.0.0"
+  },
+  "keywords": ["nextjs", "performance", "react", "devtools", "analyzer", "render-tracking"],
+  "author": "Your Name",
+  "license": "MIT"
+}
