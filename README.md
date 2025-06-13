@@ -112,7 +112,7 @@ initPerfKit();
 ## 👥 Contributing
 
 1. Fork the repo
-2. Clone locally: `git clone https://github.com/yourname/nextjs-perfkit.git`
+2. Clone locally: `git clone https://github.com/deepbratt/nextjs-perfkit.git`
 3. Install deps: `npm install`
 4. Test with a Next.js sample project
 
@@ -120,4 +120,4 @@ initPerfKit();
 
 ## 📄 License
 
-MIT License © 2025 [YourName]
+MIT License © 2025 [deepbratt]
