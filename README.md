@@ -1,20 +1,13 @@
-# 🧠 Next.js PerfKit
+# 🚀 nextjs-perfkit
 
-A lightweight DevTools-style performance analyzer for **Next.js + TypeScript** apps.
-Track rendering time, memory usage, network latency, prop changes, and more — all from your browser.
-
-![PerfKit UI Example](https://user-images.githubusercontent.com/example/perfkit-ui.png) <!-- Add screenshot later -->
+**Frontend performance analytics and DevTools UI for Next.js + React apps.**
+Track render times, memory usage, network performance, prop changes, and export logs for team insights — all from a floating overlay.
 
 ---
 
-## 🚀 Features
-
-- 🔥 Heatmap of slow components (based on render duration)
-- 🧠 Memory usage alerts
-- 🌐 Network latency tracker (intercepts all fetch requests)
-- ⚙️ DevTools overlay UI (toggle memory, reload, hide)
-- 🔄 Re-render debugger (based on prop changes)
-- 📦 Exportable logs for team analysis (coming soon)
+![npm](https://img.shields.io/npm/v/nextjs-perfkit)
+![downloads](https://img.shields.io/npm/dm/nextjs-perfkit)
+![license](https://img.shields.io/npm/l/nextjs-perfkit)
 
 ---
 
@@ -22,122 +15,80 @@ Track rendering time, memory usage, network latency, prop changes, and more — 
 
 ```bash
 npm install nextjs-perfkit
-# or
-yarn add nextjs-perfkit
 ```
 
 ---
 
-## 🛠️ Usage
+## 🎨 CSS Styling
 
-### 1. Add DevTools to your app
+You must import the overlay CSS manually in your Next.js `_app.tsx` file:
 
 ```ts
-// pages/_app.tsx or in useEffect of a layout
-import { initPerfKit } from "nextjs-perfkit/src/DevToolsOverlay";
+import "nextjs-perfkit/styles/overlay.css";
 
-useEffect(() => {
-  initPerfKit();
-}, []);
+export default function MyApp({ Component, pageProps }) {
+  return <Component {...pageProps} />;
+}
 ```
 
-### 2. Track Component Render Duration
-
-```tsx
-import { useRenderHeatmap } from "nextjs-perfkit/src/hooks/useRenderHeatmap";
-
-const MyComponent = () => {
-  useRenderHeatmap("MyComponent");
-
-  return <div data-perf-label="MyComponent">Hello World</div>;
-};
-```
-
-### 3. Debug Prop Changes
-
-```tsx
-import { usePropDebugger } from "nextjs-perfkit/src/hooks/usePropDebugger";
-
-const MyComponent = (props) => {
-  usePropDebugger(props);
-  return <div>Content</div>;
-};
-```
+> ⚠️ If you forget to include this, the overlay will inject fallback inline styles with a warning.
 
 ---
 
-## 📂 Folder Structure
-
-```
-nextjs-perfkit/
-├── src/
-│   ├── hooks/
-│   │   ├── useRenderHeatmap.ts
-│   │   └── usePropDebugger.ts
-│   ├── utils/
-│   │   ├── trackMemory.ts
-│   │   └── trackNetwork.ts
-│   └── DevToolsOverlay.tsx
-├── styles/
-│   └── overlay.css
-└── README.md
-```
-
----
-
-## 📊 DevTools UI
-
-Open the floating UI in your browser:
-
-- ✅ Track memory usage
-- 🔄 Reload page
-- ❌ Hide panel
-
-You can trigger this in your root layout or `_app.tsx` using:
+## 🚀 Quick Start
 
 ```ts
-initPerfKit();
+import { initPerfKit } from "nextjs-perfkit";
+
+if (process.env.NODE_ENV === "development") {
+  initPerfKit(); // initializes DevTools floating panel
+}
 ```
 
 ---
 
-## 🧪 Full Example: Using PerfKit in a Next.js Page
+## 🧪 Example Usage
 
 ```tsx
 "use client";
 import { useEffect } from "react";
-import { useMemoryTracker } from "@perfkit/devtools";
-import { useRenderHeatmap } from "@perfkit/devtools";
-import { usePropDebugger } from "@perfkit/devtools";
 import {
+  useRenderHeatmap,
+  useMemoryTracker,
+  usePropDebugger,
   registerAlertHandler,
   checkMemoryUsage,
   trackNetworkRequest,
-} from "@perfkit/devtools";
-import { downloadLogs } from "@perfkit/devtools";
+  downloadLogs,
+} from "nextjs-perfkit";
 
 export default function Home() {
-  useRenderHeatmap("Home");
-  useMemoryTracker(3000); // check memory every 3 seconds
-  usePropDebugger({ example: "value" });
+  useRenderHeatmap("HomePage");
+  useMemoryTracker(3000);
+  usePropDebugger({ propA: "value" });
 
   useEffect(() => {
     registerAlertHandler((msg, type, meta) => {
       console.warn(`[ALERT - ${type}]`, msg, meta);
     });
 
-    setInterval(() => checkMemoryUsage(), 5000);
-    trackNetworkRequest("/api/test");
+    setInterval(() => {
+      checkMemoryUsage();
+    }, 5000);
+
+    trackNetworkRequest("/api/example");
   }, []);
 
   return (
-    <main>
-      <h1>Hello PerfKit</h1>
-      <button onClick={downloadLogs}>Download Logs</button>
+    <main data-perf-label="HomePage">
+      <h1>🚀 Hello PerfKit</h1>
+      <button onClick={downloadLogs}>📥 Download Logs</button>
     </main>
   );
 }
 ```
+
+---
 
 ## 📚 Utility Highlights
 
@@ -146,40 +97,70 @@ export default function Home() {
 Tracks memory usage via `performance.memory` and logs it regularly.
 🚨 Triggers an alert if heap usage exceeds a defined threshold (default: 100MB).
 
----
-
 ### `useRenderHeatmap(label: string)`
 
 Measures render duration of a component and outlines it with a visual border if slow.
 📏 Useful for identifying visual bottlenecks.
-
----
 
 ### `usePropDebugger(props)`
 
 Logs changed props that cause a re-render.
 🔍 Helps debug unnecessary re-renders in components.
 
----
-
 ### `registerAlertHandler(callback)`
 
 Registers a custom global alert handler.
 💡 Use this to display toast messages or logs when memory/network thresholds are crossed.
-
----
 
 ### `trackNetworkRequest(url: string)`
 
 Monitors fetch calls and tracks repeated calls to the same endpoint within a short window (10s by default).
 📡 Prevents performance issues caused by over-fetching.
 
----
-
 ### `downloadLogs()`
 
 Exports all collected logs (render, memory, network, etc.) as a downloadable `.json` file.
 📝 Perfect for team debugging or offline analysis.
+
+---
+
+## 📑 Types
+
+You can import type-safe log definitions like so:
+
+```ts
+import type { PerfLogEntry } from "nextjs-perfkit/types";
+```
+
+---
+
+## 📤 Exportable Logs
+
+PerfKit collects structured logs from memory, network, and render events.
+You can export them using:
+
+```ts
+import { downloadLogs } from "nextjs-perfkit";
+
+downloadLogs(); // Triggers a JSON download
+```
+
+---
+
+## 🛠 Project Structure
+
+```
+src/
+├── hooks/              # useRenderHeatmap, useMemoryTracker, usePropDebugger
+├── utils/              # trackMemory, network, alerts, logging
+├── types.ts            # exported types
+├── DevToolsOverlay.tsx # floating overlay component
+├── index.ts            # main entry exports
+styles/
+├── overlay.css         # external UI styles
+```
+
+---
 
 ## 🛠 Future Roadmap
 
@@ -200,10 +181,10 @@ Exports all collected logs (render, memory, network, etc.) as a downloadable `.j
 
 ---
 
-## 📄 License
+## 📝 License
 
-MIT License © 2025 [deepbratt]
+MIT © 2025 [Deep Bratt](https://github.com/deepbratt)
 
-![npm](https://img.shields.io/npm/v/nextjs-perfkit)
-![downloads](https://img.shields.io/npm/dm/nextjs-perfkit)
-![license](https://img.shields.io/npm/l/nextjs-perfkit)
+---
+
+Made with ❤️ for frontend performance engineering.
