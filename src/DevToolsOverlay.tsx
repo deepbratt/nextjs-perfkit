@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./styles/overlay.css";
 import { trackMemoryUsage } from "./utils/trackMemory";
-import { interceptFetch } from "./utils/trackNetwork";
+import { interceptNetwork } from "./utils/trackNetwork";
 import { downloadLogs, getLogs } from "./utils/uploadLogs";
 
 export const DevToolsOverlay = () => {
@@ -10,7 +10,7 @@ export const DevToolsOverlay = () => {
 
   useEffect(() => {
     trackMemoryUsage();
-    interceptFetch();
+    interceptNetwork();
     setLogs(getLogs());
   }, []);
 
