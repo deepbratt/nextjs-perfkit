@@ -1,145 +1,123 @@
-# 🚀 PerfKit DevTools
 
-**Frontend-Only Performance Analyzer for Next.js + TypeScript Applications**
+# 🧠 Next.js PerfKit
 
-> Real-time DevTools-style diagnostics for rendering, memory, network performance, and re-renders. Built for modern React/Next.js apps.
+A lightweight DevTools-style performance analyzer for **Next.js + TypeScript** apps.  
+Track rendering time, memory usage, network latency, prop changes, and more — all from your browser.
+
+![PerfKit UI Example](https://user-images.githubusercontent.com/example/perfkit-ui.png) <!-- Add screenshot later -->
+
+---
+
+## 🚀 Features
+
+- 🔥 Heatmap of slow components (based on render duration)
+- 🧠 Memory usage alerts
+- 🌐 Network latency tracker (intercepts all fetch requests)
+- ⚙️ DevTools overlay UI (toggle memory, reload, hide)
+- 🔄 Re-render debugger (based on prop changes)
+- 📦 Exportable logs for team analysis (coming soon)
 
 ---
 
 ## 📦 Installation
 
 ```bash
-npm install @perfkit/devtools
-```
-
-or
-
-```bash
-yarn add @perfkit/devtools
+npm install nextjs-perfkit
+# or
+yarn add nextjs-perfkit
 ```
 
 ---
 
-## 🧠 Features
+## 🛠️ Usage
 
-- 🔍 **Component Render Time Tracking**
-- 🔥 **Heatmap Overlay** for slow components
-- 🧠 **Re-render Debugging** (with prop change annotations)
-- 📈 **Memory Usage & Leak Detection**
-- 🌐 **Network Request Profiling**
-- 📤 **Export & Upload Logs** for team insights
-- 🚨 **Alerts** for memory spikes & repeated calls
-- 🧪 **DevTools Overlay** with visual toggles
+### 1. Add DevTools to your app
 
----
+```ts
+// pages/_app.tsx or in useEffect of a layout
+import { initPerfKit } from 'nextjs-perfkit/src/DevToolsOverlay';
 
-## ⚙️ Quick Setup
+useEffect(() => {
+  initPerfKit();
+}, []);
+```
 
-### 1. Enable the tool in development mode
-
-In `pages/_app.tsx`:
+### 2. Track Component Render Duration
 
 ```tsx
-if (process.env.NODE_ENV === 'development') {
-  require('@perfkit/devtools').initPerfKit();
-}
+import { useRenderHeatmap } from 'nextjs-perfkit/src/hooks/useRenderHeatmap';
+
+const MyComponent = () => {
+  useRenderHeatmap("MyComponent");
+
+  return <div data-perf-label="MyComponent">Hello World</div>;
+};
 ```
 
----
-
-### 2. Use in Components
+### 3. Debug Prop Changes
 
 ```tsx
-import { useRenderHeatmap, usePropDebugger } from '@perfkit/devtools';
+import { usePropDebugger } from 'nextjs-perfkit/src/hooks/usePropDebugger';
 
-const MyComponent = ({ name }) => {
-  useRenderHeatmap('MyComponent');
-  usePropDebugger({ name }); // logs changed props causing re-render
-  return <div>{name}</div>;
+const MyComponent = (props) => {
+  usePropDebugger(props);
+  return <div>Content</div>;
 };
 ```
 
 ---
 
-## 🖥️ DevTools Overlay
+## 📂 Folder Structure
 
-A floating panel appears in development with options to:
-
-- Toggle heatmaps
-- Export performance logs
-- Upload logs to your team dashboard
-- Display memory/network alerts
-
----
-
-## 📤 Log Upload Example
-
-```ts
-import { uploadLogs } from '@perfkit/devtools';
-
-await uploadLogs('https://your-server/upload');
 ```
-
----
-
-## 🚨 Smart Alerts
-
-Get notified when:
-
-- Memory usage exceeds thresholds
-- Same network call is repeated rapidly
-
----
-
-## 📁 Folder Structure
-
-```bash
 nextjs-perfkit/
 ├── src/
-│   ├── hooks/                # React hooks (heatmap, debugger)
-│   ├── utils/                # Memory, render, network, upload
-│   └── DevToolsOverlay.tsx   # Floating UI
-├── styles/                   # Overlay styling
-├── examples/next-app         # Demo Next.js integration
-├── package.json
-├── README.md
-└── tsconfig.json
+│   ├── hooks/
+│   │   ├── useRenderHeatmap.ts
+│   │   └── usePropDebugger.ts
+│   ├── utils/
+│   │   ├── trackMemory.ts
+│   │   └── trackNetwork.ts
+│   └── DevToolsOverlay.tsx
+├── styles/
+│   └── overlay.css
+└── README.md
 ```
 
 ---
 
-## 🧪 Example Integration
+## 📊 DevTools UI
 
-```tsx
-import { useRenderHeatmap } from '@perfkit/devtools';
+Open the floating UI in your browser:
+- ✅ Track memory usage
+- 🔄 Reload page
+- ❌ Hide panel
 
-export default function Sidebar({ title }) {
-  useRenderHeatmap('Sidebar');
-  return <div>{title}</div>;
-}
+You can trigger this in your root layout or `_app.tsx` using:
+
+```ts
+initPerfKit();
 ```
 
 ---
 
-## 🛠 Future Roadmap
+## 📢 Alerts & Thresholds
 
-- [ ] Browser extension
-- [ ] Side-by-side session comparison
-- [ ] Cloud sync (S3/GCP)
-- [ ] Integration with monitoring tools
+- Memory usage > 100MB → ⚠️ alert in UI
+- Fetch calls → ⏱️ duration log in console
+- Render time > 16ms → 🔴 red outline
 
 ---
 
-## 🙌 Contributing
+## 👥 Contributing
 
-Pull requests are welcome! Please open an issue first to discuss what you’d like to change.
+1. Fork the repo
+2. Clone locally: `git clone https://github.com/yourname/nextjs-perfkit.git`
+3. Install deps: `npm install`
+4. Test with a Next.js sample project
 
 ---
 
 ## 📄 License
 
-[MIT](./LICENSE)
-
----
-
-Built with ❤️ to help developers ship faster.
+MIT License © 2025 [YourName]
