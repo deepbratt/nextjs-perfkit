@@ -1,33 +1,45 @@
 {
-  "name": "@perfkit/devtools",
-  "version": "0.1.0",
+  "name": "nextjs-perfkit",
+  "version": "1.0.0",
+  "description": "Frontend performance analyzer for Next.js apps – render time tracking, memory logging, network analysis, DevTools UI.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "dev": "tsc -w",
     "prepare": "npm run build"
   },
   "files": [
     "dist",
     "styles",
-    "src"
+    "README.md"
   ],
-  "peerDependencies": {
-    "next": "^13.0.0 || ^14.0.0",
-    "react": "^18.0.0"
-  },
+  "author": "DeepBratt (Shuvradeb Mondal) <deepbratt@gmail.com>",
+  "license": "MIT",
   "keywords": [
     "nextjs",
     "performance",
-    "react",
     "devtools",
-    "analyzer",
-    "render-tracking"
+    "typescript",
+    "react",
+    "analytics",
+    "render",
+    "memory",
+    "network"
   ],
-  "author": "Shuvradeb Mondal - deepbratt",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deepbratt/nextjs-perfkit"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "next": "^13.0.0 || ^14.0.0 || ^15.0.0"
+  },
   "devDependencies": {
-    "typescript": "^5.8.3"
+    "typescript": "^5.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0"
   }
 }

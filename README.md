@@ -203,3 +203,7 @@ Exports all collected logs (render, memory, network, etc.) as a downloadable `.j
 ## 📄 License
 
 MIT License © 2025 [deepbratt]
+
+![npm](https://img.shields.io/npm/v/nextjs-perfkit)
+![downloads](https://img.shields.io/npm/dm/nextjs-perfkit)
+![license](https://img.shields.io/npm/l/nextjs-perfkit)

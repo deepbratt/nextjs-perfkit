@@ -49,7 +49,7 @@ export const DevToolsOverlay = () => {
 export const initPerfKit = () => {
   const container = document.createElement("div");
   document.body.appendChild(container);
-  import("react-dom").then(({ createRoot }) => {
+  import("react-dom/client").then(({ createRoot }) => {
     const root = createRoot(container);
     root.render(<DevToolsOverlay />);
   });
