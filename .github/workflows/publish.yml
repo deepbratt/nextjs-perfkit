@@ -28,15 +28,13 @@ jobs:
       - name: 🏗️ Build the package
         run: npm run build
 
-      - name: 🔁 Bump version and tag
+      - name: 🔁 Tag version from package.json
         run: |
           git config user.name "deepbratt"
           git config user.email "deepbratt@users.noreply.github.com"
-          VERSION=$(npm version patch --no-git-tag-version)
-          git add package.json package-lock.json
-          git commit -m "ci: bump version"
-          git tag $VERSION
-          git push origin main --follow-tags
+          VERSION=$(node -p "require('./package.json').version")
+          git tag v$VERSION
+          git push origin v$VERSION
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
