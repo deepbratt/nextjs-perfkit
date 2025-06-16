@@ -11,6 +11,22 @@ Track render times, memory usage, network performance, prop changes, and export 
 
 ---
 
+## 📦 Package Exports
+
+- CommonJS: `dist/cjs/index.js` (for Node.js, older bundlers)
+- ESModule: `dist/esm/index.js` (for modern bundlers like Webpack, Vite, Next.js)
+
+These are automatically selected based on your environment. You can also import directly if needed:
+
+```js
+// ESM
+import { initPerfKit } from "nextjs-perfkit/dist/esm/index.js";
+// CommonJS
+const { initPerfKit } = require("nextjs-perfkit/dist/cjs/index.js");
+```
+
+---
+
 ## 📦 Installation
 
 ```bash

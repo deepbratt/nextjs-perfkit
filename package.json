@@ -1,9 +1,10 @@
 {
   "name": "nextjs-perfkit",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Frontend performance analyzer for Next.js apps – render time tracking, memory logging, network analysis, DevTools UI.",
   "scripts": {
-    "build": "tsc",
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
     "prepare": "npm run build"
   },
   "files": [
@@ -29,15 +30,21 @@
     "url": "https://github.com/deepbratt/nextjs-perfkit"
   },
   "peerDependencies": {
+    "next": "^13.0.0 || ^14.0.0 || ^15.0.0",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "next": "^13.0.0 || ^14.0.0 || ^15.0.0"
+    "react-dom": "^18.0.0"
   },
   "devDependencies": {
-    "typescript": "^5.0.0",
+    "@rollup/plugin-commonjs": "^28.0.5",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0"
-  }
+    "rollup": "^4.43.0",
+    "typescript": "^5.8.3"
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js"
 }
