@@ -1,44 +1,28 @@
-const resolve = require("@rollup/plugin-node-resolve");
-const commonjs = require("@rollup/plugin-commonjs");
-const typescript = require("@rollup/plugin-typescript");
+import resolve from "@rollup/plugin-node-resolve";
+import typescript from "@rollup/plugin-typescript";
+import { createRequire } from "node:module";
+const require = createRequire(import.meta.url);
 const pkg = require("./package.json");
 
-module.exports = [
-  {
-    input: "src/index.ts",
-    output: {
-      dir: "dist/cjs",
-      format: "cjs",
-      sourcemap: true,
-      preserveModules: true,
-      exports: "named",
-    },
-    plugins: [
-      resolve(),
-      commonjs(),
-      typescript({ tsconfig: "./tsconfig.json", outDir: "dist/cjs" }),
-    ],
-    external: [
-      ...Object.keys(pkg.dependencies || {}),
-      ...Object.keys(pkg.peerDependencies || {}),
-    ],
+export default {
+  input: "src/index.ts",
+  output: {
+    file: "dist/index.js",
+    format: "esm",
+    sourcemap: true,
+    exports: "named",
+    inlineDynamicImports: true,
   },
-  {
-    input: "src/index.ts",
-    output: {
-      dir: "dist/esm",
-      format: "esm",
-      sourcemap: true,
-      preserveModules: true,
-    },
-    plugins: [
-      resolve(),
-      commonjs(),
-      typescript({ tsconfig: "./tsconfig.json", outDir: "dist/esm" }),
-    ],
-    external: [
-      ...Object.keys(pkg.dependencies || {}),
-      ...Object.keys(pkg.peerDependencies || {}),
-    ],
-  },
-];
+  plugins: [resolve(), typescript({ tsconfig: "./tsconfig.json" })],
+  external: [
+    "react",
+    "react-dom",
+    "react/jsx-runtime",
+    "react-dom/client",
+    "react-dom/server",
+    "react-dom/server.browser",
+    "react-dom/server.node",
+    ...Object.keys(pkg.dependencies || {}),
+    ...Object.keys(pkg.peerDependencies || {}),
+  ],
+};
