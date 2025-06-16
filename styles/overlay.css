@@ -1,75 +1,133 @@
+/*
+  AG Grid-inspired, compact, modern, and resizable overlay styles
+  Futuristic color palette, glassy effect, and resize handle
+*/
 .perfkit-overlay {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: rgba(30, 30, 30, 0.95);
-  border: 1px solid #444;
-  border-radius: 10px;
-  padding: 12px;
-  font-family: monospace;
-  font-size: 14px;
-  color: #fff;
+  bottom: 24px;
+  right: 24px;
+  background: linear-gradient(135deg, #23272f 80%, #1a1d23 100%);
+  border: 1.5px solid #2e3748;
+  border-radius: 12px;
+  padding: 0;
+  font-family: "Segoe UI", "Roboto Mono", "Fira Mono", monospace;
+  font-size: 13px;
+  color: #eaf6fb;
   z-index: 9999;
-  width: 280px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  width: 340px;
+  min-width: 260px;
+  max-width: 480px;
+  min-height: 120px;
+  max-height: 80vh;
+  box-shadow: 0 4px 32px 0 #000a, 0 1.5px 0 #00ffe7 inset;
+  overflow: hidden;
+  resize: both;
+  display: flex;
+  flex-direction: column;
 }
 
 .perfkit-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: linear-gradient(90deg, #1a1d23 60%, #23272f 100%);
+  border-bottom: 1px solid #2e3748;
+  padding: 10px 16px 8px 16px;
+  cursor: move;
+  user-select: none;
 }
 
 .perfkit-header h4 {
   margin: 0;
-  font-size: 16px;
-  color: #00d8ff;
+  font-size: 17px;
+  font-weight: 700;
+  color: #00ffe7;
+  letter-spacing: 1px;
+  text-shadow: 0 0 4px #00ffe7aa;
 }
 
 .perfkit-toggle {
   background: none;
   border: none;
-  color: #ccc;
-  font-size: 16px;
+  color: #7fffd4;
+  font-size: 18px;
   cursor: pointer;
+  transition: color 0.2s;
+}
+.perfkit-toggle:hover {
+  color: #00ffe7;
 }
 
 .perfkit-body {
-  margin-top: 12px;
+  padding: 14px 16px 10px 16px;
+  background: transparent;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .perfkit-section {
-  margin-bottom: 16px;
+  margin-bottom: 0;
+  background: rgba(36, 40, 48, 0.85);
+  border-radius: 7px;
+  padding: 10px 12px 8px 12px;
+  box-shadow: 0 1px 0 #00ffe733 inset;
+  border: 1px solid #2e3748;
 }
 
 .perfkit-section h5 {
-  margin: 0 0 6px;
-  font-size: 14px;
-  color: #fff;
+  margin: 0 0 7px 0;
+  font-size: 13px;
+  color: #7fffd4;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 .perfkit-section button {
-  background: #444;
-  color: white;
-  border: none;
-  padding: 6px 10px;
+  background: linear-gradient(90deg, #23272f 60%, #1a1d23 100%);
+  color: #00ffe7;
+  border: 1px solid #00ffe7;
+  padding: 5px 12px;
   border-radius: 4px;
   cursor: pointer;
   margin-top: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s, border 0.2s;
 }
 
 .perfkit-section button:hover {
-  background: #666;
+  background: #00ffe7;
+  color: #23272f;
+  border: 1px solid #7fffd4;
 }
 
 .perfkit-log-preview {
   margin-top: 8px;
   max-height: 120px;
   overflow-y: auto;
-  background: #111;
-  border: 1px solid #555;
+  background: linear-gradient(90deg, #181b20 80%, #23272f 100%);
+  border: 1px solid #00ffe7;
   border-radius: 6px;
-  padding: 6px;
+  padding: 7px 8px;
   font-size: 12px;
-  color: #0f0;
+  color: #7fffd4;
+  font-family: "Fira Mono", "Roboto Mono", monospace;
+  box-shadow: 0 0 6px #00ffe733 inset;
+}
+
+/* Resize handle (optional, for visual cue) */
+.perfkit-overlay::after {
+  content: "";
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, transparent 60%, #00ffe7 100%);
+  opacity: 0.5;
+  border-radius: 3px;
+  pointer-events: none;
 }
