@@ -1,7 +1,5 @@
 # Node.js
 node_modules/
-.env
-.env.local
 .npmrc
 
 # TypeScript
@@ -14,7 +12,6 @@ dist/
 *.log
 
 # VSCode / JetBrains IDE
-.vscode/
 .idea/
 
 # macOS / Windows
@@ -29,3 +26,4 @@ yarn-error.log*
 # Test / Example Apps (don't version control them in main package)
 examples/
 coverage/
+config.bat

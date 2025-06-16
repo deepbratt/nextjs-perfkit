@@ -1,11 +1,11 @@
 {
   "name": "nextjs-perfkit",
   "version": "1.0.11",
-  "description": "Frontend performance analyzer for Next.js apps – render time tracking, memory logging, network analysis, DevTools UI.",
+  "description": "Frontend performance analyzer for Next.js apps \u2013 render time tracking, memory logging, network analysis, DevTools UI.",
   "type": "module",
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
+    "build": "node init && rollup -c",
+    "dev": "node init && rollup -c -w",
     "prepare": "npm run build"
   },
   "files": [
