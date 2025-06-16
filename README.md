@@ -140,6 +140,33 @@ Exports all collected logs (render, memory, network, etc.) as a downloadable `.j
 
 ---
 
+## 🕵️‍♂️ How to use `usePropDebugger`
+
+The `usePropDebugger` hook helps you track which props are changing and causing your component to re-render.
+This is useful for debugging unnecessary renders and optimizing your React components.
+
+### Example
+
+```tsx
+"use client";
+import { usePropDebugger } from "nextjs-perfkit";
+
+export default function MyComponent(props) {
+  usePropDebugger(props);
+
+  return (
+    <div>
+      <h2>Check the console for prop changes!</h2>
+    </div>
+  );
+}
+```
+
+- Just call `usePropDebugger(props)` at the top of your component.
+- On every render, it will log which props have changed since the last render.
+
+---
+
 ## 📑 Types
 
 You can import type-safe log definitions like so:
