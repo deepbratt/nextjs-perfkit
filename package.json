@@ -1,6 +1,6 @@
 {
   "name": "nextjs-perfkit",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Frontend performance analyzer for Next.js apps – render time tracking, memory logging, network analysis, DevTools UI.",
   "scripts": {
     "build": "tsc",
