@@ -6,7 +6,7 @@ import { addLog } from "../utils/uploadLogs";
  * Uses `performance.memory` (Chrome only) and logs at a fixed interval.
  */
 export const useMemoryTracker = (intervalMs: number = 5000) => {
-  const intervalRef = useRef<number | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (!(performance as any).memory) {
