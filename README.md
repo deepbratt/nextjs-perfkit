@@ -11,6 +11,22 @@ Track render times, memory usage, network performance, prop changes, and export 
 
 ---
 
+## 📦 Package Exports
+
+- CommonJS: `dist/cjs/index.js` (for Node.js, older bundlers)
+- ESModule: `dist/esm/index.js` (for modern bundlers like Webpack, Vite, Next.js)
+
+These are automatically selected based on your environment. You can also import directly if needed:
+
+```js
+// ESM
+import { initPerfKit } from "nextjs-perfkit/dist/esm/index.js";
+// CommonJS
+const { initPerfKit } = require("nextjs-perfkit/dist/cjs/index.js");
+```
+
+---
+
 ## 📦 Installation
 
 ```bash
@@ -121,6 +137,33 @@ Monitors fetch calls and tracks repeated calls to the same endpoint within a sho
 
 Exports all collected logs (render, memory, network, etc.) as a downloadable `.json` file.
 📝 Perfect for team debugging or offline analysis.
+
+---
+
+## 🕵️‍♂️ How to use `usePropDebugger`
+
+The `usePropDebugger` hook helps you track which props are changing and causing your component to re-render.
+This is useful for debugging unnecessary renders and optimizing your React components.
+
+### Example
+
+```tsx
+"use client";
+import { usePropDebugger } from "nextjs-perfkit";
+
+export default function MyComponent(props) {
+  usePropDebugger(props);
+
+  return (
+    <div>
+      <h2>Check the console for prop changes!</h2>
+    </div>
+  );
+}
+```
+
+- Just call `usePropDebugger(props)` at the top of your component.
+- On every render, it will log which props have changed since the last render.
 
 ---
 
