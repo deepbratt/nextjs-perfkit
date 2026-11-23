@@ -26,4 +26,6 @@ yarn-error.log*
 # Test / Example Apps (don't version control them in main package)
 examples/
 coverage/
-config.bat
+.env
+.env.*
+!.env.example
