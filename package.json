@@ -1,11 +1,11 @@
 {
   "name": "nextjs-perfkit",
   "version": "1.0.5",
-  "description": "Frontend performance analyzer for Next.js apps \u2013 render time tracking, memory logging, network analysis, DevTools UI.",
+  "description": "Frontend performance analyzer for Next.js apps – render time tracking, memory logging, network analysis, DevTools UI.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "node init && tsc",
+    "build": "tsc",
     "prepare": "npm run build"
   },
   "files": [
@@ -36,12 +36,10 @@
     "next": "^13.0.0 || ^14.0.0 || ^15.0.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
-    "dotenv": "^8.2.0",
-    "node-fetch": "^3.3.2",
+    "typescript": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "typescript": "^5.0.0"
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0"
   }
 }
